@@ -5,6 +5,9 @@ import com.darksun.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+
 @Service
 public class TaskService {
 
@@ -20,5 +23,15 @@ public class TaskService {
 		}
 
 		return repository.save( task );
+	}
+
+	public List< Task > readAll( ) {
+		return repository.findAll( );
+	}
+
+	public Task readById( Long id ) {
+		return repository.findById( id )
+						 .orElseThrow( ( ) -> new EntityNotFoundException(
+								 "Task not found with ID: " + id ) );
 	}
 }
