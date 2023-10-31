@@ -1,0 +1,24 @@
+package com.darksun.service;
+
+import com.darksun.model.Task;
+import com.darksun.repository.TaskRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class TaskService {
+
+	@Autowired
+	TaskRepository repository;
+
+	public Task create( Task task ) {
+		if ( task.getId( ) == null ) {
+			throw new IllegalArgumentException( "Task has no Id. Must be zero." );
+		}
+		if ( !task.getId( ).equals( 0L ) ) {
+			throw new IllegalArgumentException( "This task is already registered." );
+		}
+
+		return repository.save( task );
+	}
+}
