@@ -3,6 +3,7 @@ package com.darksun.service;
 import com.darksun.model.Task;
 import com.darksun.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -41,5 +42,13 @@ public class TaskService {
 		}
 
 		return repository.save( task );
+	}
+
+	public void delete( Long id ) {
+		try {
+			repository.deleteById( id );
+		} catch ( EmptyResultDataAccessException ex ) {
+			throw new EntityNotFoundException( "Task not found with ID: " + id );
+		}
 	}
 }

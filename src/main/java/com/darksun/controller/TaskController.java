@@ -35,4 +35,10 @@ public class TaskController {
 	public ResponseEntity< Task > update( @RequestBody Task task ) {
 		return new ResponseEntity<>( service.update( task ), HttpStatus.OK );
 	}
+
+	@DeleteMapping( "/{id}" )
+	public ResponseEntity delete( @PathVariable Long id ) {
+		service.delete( id );
+		return new ResponseEntity( HttpStatus.NO_CONTENT );
+	}
 }
