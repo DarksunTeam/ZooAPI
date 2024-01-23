@@ -16,7 +16,7 @@ public class TaskService {
 
 	public Task create( Task task ) {
 		if ( task.getId( ) == null ) {
-			throw new IllegalArgumentException( "Task has no Id. Must be zero." );
+			throw new IllegalArgumentException( "Task has no Id. It must be zero." );
 		}
 		if ( !task.getId( ).equals( 0L ) ) {
 			throw new IllegalArgumentException( "This task is already registered." );
@@ -33,5 +33,13 @@ public class TaskService {
 		return repository.findById( id )
 						 .orElseThrow( ( ) -> new EntityNotFoundException(
 								 "Task not found with ID: " + id ) );
+	}
+
+	public Task update( Task task ) {
+		if ( task.getId( ) == null || task.getId( ).equals( 0L ) ) {
+			throw new IllegalArgumentException( "Task has no Id. It must have a value." );
+		}
+
+		return repository.save( task );
 	}
 }

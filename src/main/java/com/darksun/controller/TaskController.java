@@ -30,4 +30,9 @@ public class TaskController {
 	public ResponseEntity< Task > readById( @PathVariable Long id ) {
 		return new ResponseEntity<>( service.readById( id ), HttpStatus.OK );
 	}
+
+	@PutMapping
+	public ResponseEntity< Task > update( @RequestBody Task task ) {
+		return new ResponseEntity<>( service.update( task ), HttpStatus.OK );
+	}
 }
